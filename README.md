@@ -51,6 +51,14 @@ En hızlı rota (21 dakika): Batıkent -> Demetevler -> Gar -> Keçiören
 En az aktarmalı rota: Keçiören -> Gar -> Gar -> Sıhhiye -> Kızılay -> AŞTİ
 En hızlı rota (19 dakika): Keçiören -> Gar -> Gar -> Sıhhiye -> Kızılay -> AŞTİ
 
+![Test Sonuçları](kodciktisi.png)
+
+## Ek Geliştirme
+
+Ayrıca projede istasyonlar ve hatlar görselleştirilmiştir.
+
+![İstasyon Ve Hat Görselleri](gorsellestirme.png)
+
 ## Geliştirme Fikirleri
 
 Proje bulunulan ve hedef istasyon dinamik olarak seçilen ve rota belirlenen bir uygulama/site haline getirilebilir.
