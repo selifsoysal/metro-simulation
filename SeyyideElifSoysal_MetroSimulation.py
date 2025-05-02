@@ -64,11 +64,15 @@ class MetroAgi:
         baslangic = self.istasyonlar[baslangic_id]
         hedef = self.istasyonlar[hedef_id]
 
-        pq = [(0, id(baslangic), baslangic, [baslangic])]
+        # Heuristic: Burada basit olarak her istasyon arası 1 varsayıldı. Daha iyi bir heuristik varsa değiştirilebilir.
+        def heuristic(istasyon1: Istasyon, istasyon2: Istasyon) -> int:
+            return 1  # Sabit düşük değer – gerçek hayatta coğrafi mesafeye dayalı olabilir
+
+        open_set = [(heuristic(baslangic, hedef), 0, id(baslangic), baslangic, [baslangic])]
         en_kisa_sureler = {baslangic.idx: 0}
 
-        while pq:
-            toplam_sure, _, mevcut_istasyon, rota = heapq.heappop(pq)
+        while open_set:
+            _, toplam_sure, _, mevcut_istasyon, rota = heapq.heappop(open_set)
 
             if mevcut_istasyon.idx == hedef.idx:
                 return rota, toplam_sure
@@ -78,10 +82,12 @@ class MetroAgi:
 
                 if komsu.idx not in en_kisa_sureler or yeni_sure < en_kisa_sureler[komsu.idx]:
                     en_kisa_sureler[komsu.idx] = yeni_sure
+                    f = yeni_sure + heuristic(komsu, hedef)
                     yeni_rota = rota + [komsu]
-                    heapq.heappush(pq, (yeni_sure, id(komsu), komsu, yeni_rota))
+                    heapq.heappush(open_set, (f, yeni_sure, id(komsu), komsu, yeni_rota))
 
         return None
+
 
     def metro_grafik_ciz(self, metro, rotalar=None):
         G = nx.Graph()
